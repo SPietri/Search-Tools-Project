@@ -1,0 +1,45 @@
+library(ggplot2)
+library(ggalt)
+library(ggthemes)
+library(ggstance)
+library(dplyr)
+###########################
+### Examing Date Sample ###
+###########################
+setwd("C:/Users/pietr/Desktop/Data/Search Tools Project")
+dates <- read.csv("Search Engine Project- Dates.csv")
+dates
+dates[24,2]<-2018
+dates[12,4]<- "PubMed"
+attach(dates)
+dates$Range <- Start.Date - End.Date
+
+
+#3 visualizing the dates:
+# I know I want a dumbell plot because I wanted to convey to the reader how 
+# much more distance (time spand) is covered by Scorpus opposed to PUbMed. 
+
+dates.1<- split.data.frame(dates, dates$Base)
+datess<- dates.1$Scorpus
+datesp<- dates.1$PubMed
+names(datesp)[4]<-paste("P.Base")
+
+dp1 <-ggplot(na.omit(datess), aes(x=Start.Date, xend= End.Date, 
+                                         y= as.factor(Term), fill="Scorpus"))+ geom_dumbbell(color="black",size= .75)                                       
+dp2 <- dp1 + geom_dumbbell(data = na.omit(datesp), 
+                           aes(x= Start.Date, xend= End.Date, y= as.factor(Term), fill="PubMed"),
+                           color= "peru", size= .75)
+# When adding plots on top of each other you have to put things in the right order and use the 
+# arguments. 
+dp2
+
+dp4<- dp2+ labs(title="Date Range of Search Results:\nPubMed vs Scorpus", 
+                x= "Year", y= "Query Search Number") 
+# n\ will ensure that this is a break and goes onto a second line. 
+dp5 <- dp4+ scale_fill_manual(values=c("peru", "black"), 
+                  name="Base",
+                  breaks=c("PubMed", "Scorpus"),
+                  labels=c("PubMed", "Scorpus"))
+dp5
+
+
