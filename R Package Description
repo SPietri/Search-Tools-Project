@@ -1,0 +1,17 @@
+Package: hitgo
+Type: Package
+Title: Comparing two Search Tools
+Version: 0.0.0.9000
+Authors@R: "Siana Pietri <spietri@mail.usf.edu> [aut,cre]"
+URL: https://github.com/SPietri/Search-Tools-Project
+Description: This package was created for the purpose of evaluating 
+      search tools such as databases and search engines. It 
+      contains statistical tests Kendals tau-b and Kamogorov-
+      Smirnov’s D (KSD) to test for rank disconcordace/concordance.
+      The traditional ks.test() is modified to produce a zed-value.
+      It also provides fucntions to dispaly the data easier. 
+Depends: R (>= 3.1.2)
+License: CC0 
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
